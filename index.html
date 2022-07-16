@@ -46,16 +46,11 @@
     <slide class="" id="slide-1" style="background:;">
   
   <hgroup>
-    <h2>Generate means from exponential distribution</h2>
+    <h2>It is a website created from shiny</h2>
   </hgroup>
   
   <article data-timings="">
-    <pre><code class="r">means &lt;- apply(matrix(rexp(40000, 0.2),nrow = t, ncol = n),1, mean)
-g &lt;- ggplot(data.frame(means=means), aes(x = means))
-g &lt;- g + geom_histogram(binwidth = 0.3,aes(y=..density..))
-g
-</code></pre>
-
+    
   </article>
   <!-- Presenter Notes -->
   
@@ -64,7 +59,30 @@ g
 <slide class="" id="slide-2" style="background:;">
   
   <hgroup>
-    <h2>Histogram</h2>
+    <h2>Code for ploting</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <pre><code class="r"> # Get mm(0,1ean and sd value
+mu &lt;- as.numeric(input$mu)
+sd &lt;- as.numeric(input$sd)
+
+# draw the normal distribution
+g &lt;- ggplot(data.frame(x= c(mu-3*sd, mu+3*sd)), aes(x)) +
+    geom_function(fun = dnorm, args = list(mean = mu, sd = sd)) +
+    xlim(mu-3,mu+3)
+print(g)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  
+  <hgroup>
+    <h2>Plot</h2>
   </hgroup>
   
   <article data-timings="">
@@ -75,34 +93,32 @@ g
   
 </slide>
 
-<slide class="" id="slide-3" style="background:;">
-  
-  <hgroup>
-    <h2>Solving quadratic equation</h2>
-  </hgroup>
-  
-  <article data-timings="">
-    <p>\[ ax^2+bx+c=0 \\ x = \frac{-b\pm\sqrt{b^2-4ac}}{2a}\]</p>
-
-  </article>
-  <!-- Presenter Notes -->
-  
-</slide>
-
 <slide class="" id="slide-4" style="background:;">
   
   <hgroup>
-    <h2>Solving quadratic equation with R</h2>
+    <h2>Code in UI</h2>
   </hgroup>
   
   <article data-timings="">
-    <pre><code class="r">solvequad &lt;- function(a,b,c){
-    (-b+c(1,-1)*(b^2-4*a*c)^0.5)/(2*a)
-}
-solvequad(1,5,6)
-</code></pre>
+    <pre><code class="r"># Application title
+titlePanel(&quot;DDP Week4 project&quot;),
 
-<pre><code>## [1] -2 -3
+# Sidebar with a slider input for number of bins
+sidebarLayout(
+    sidebarPanel(
+        # Get input &quot;mean&quot;
+        textInput(&quot;mu&quot;, &quot;mean&quot;, value = 0),
+
+        # Get standard deviation
+        textInput(&quot;sd&quot;, &quot;standard deviation&quot;, value = 1)
+    ),
+
+    # Show a plot of the generated distribution
+    mainPanel(
+        textOutput(&quot;sen&quot;),
+        plotOutput(&quot;plot1&quot;)
+    )
+)
 </code></pre>
 
   </article>
@@ -117,28 +133,28 @@ solvequad(1,5,6)
       
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=1 title='Generate means from exponential distribution'>
+        data-slide=1 title='It is a website created from shiny'>
          1
       </a>
     </li>
     
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=2 title='Histogram'>
+        data-slide=2 title='Code for ploting'>
          2
       </a>
     </li>
     
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=3 title='Solving quadratic equation'>
+        data-slide=3 title='Plot'>
          3
       </a>
     </li>
     
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=4 title='Solving quadratic equation with R'>
+        data-slide=4 title='Code in UI'>
          4
       </a>
     </li>

@@ -12,34 +12,49 @@ knit        : slidify::knit2slides
 ---
 
 
-## Generate means from exponential distribution
+## It is a website created from shiny
+
+---
+## Code for ploting
+
 
 ```r
-means <- apply(matrix(rexp(40000, 0.2),nrow = t, ncol = n),1, mean)
-g <- ggplot(data.frame(means=means), aes(x = means))
-g <- g + geom_histogram(binwidth = 0.3,aes(y=..density..))
-g
+ # Get mm(0,1ean and sd value
+mu <- as.numeric(input$mu)
+sd <- as.numeric(input$sd)
+
+# draw the normal distribution
+g <- ggplot(data.frame(x= c(mu-3*sd, mu+3*sd)), aes(x)) +
+    geom_function(fun = dnorm, args = list(mean = mu, sd = sd)) +
+    xlim(mu-3,mu+3)
+print(g)
 ```
 
 ---
-## Histogram
-
+## Plot
 ![plot of chunk unnamed-chunk-3](assets/fig/unnamed-chunk-3-1.png)
 
 ---
-## Solving quadratic equation
-$$ ax^2+bx+c=0 \\ x = \frac{-b\pm\sqrt{b^2-4ac}}{2a}$$
-
----
-## Solving quadratic equation with R
+## Code in UI
 
 ```r
-solvequad <- function(a,b,c){
-    (-b+c(1,-1)*(b^2-4*a*c)^0.5)/(2*a)
-}
-solvequad(1,5,6)
-```
+# Application title
+titlePanel("DDP Week4 project"),
 
-```
-## [1] -2 -3
+# Sidebar with a slider input for number of bins
+sidebarLayout(
+    sidebarPanel(
+        # Get input "mean"
+        textInput("mu", "mean", value = 0),
+        
+        # Get standard deviation
+        textInput("sd", "standard deviation", value = 1)
+    ),
+
+    # Show a plot of the generated distribution
+    mainPanel(
+        textOutput("sen"),
+        plotOutput("plot1")
+    )
+)
 ```

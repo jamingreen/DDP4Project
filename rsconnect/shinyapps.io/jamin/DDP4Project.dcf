@@ -5,9 +5,10 @@ account: jamin
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 6650870
-bundleId: 6103876
+bundleId: 6104321
 url: https://jamin.shinyapps.io/DDP4Project/
-when: 1657986995.81513
-lastSyncTime: 1657986995.81514
+when: 1658006780.70227
+lastSyncTime: 1658006780.70228
 asMultiple: FALSE
 asStatic: FALSE
+ignoredFiles: assets/fig/unnamed-chunk-3-1.png|index.html|index.md|index.Rmd|README.md|.cache|libraries
