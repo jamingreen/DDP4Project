@@ -1,0 +1,62 @@
+---
+title: "DDP4"
+author: "Jamin Wong"
+date: "`r Sys.Date()`"
+output: ioslides_presentation
+---
+```{r, include=FALSE}
+library(ggplot2)
+```
+## It is a website created from shiny
+
+
+## Code for ploting
+
+```{r, eval = FALSE}
+ # Get mm(0,1ean and sd value
+mu <- as.numeric(input$mu)
+sd <- as.numeric(input$sd)
+
+# draw the normal distribution
+g <- ggplot(data.frame(x= c(mu-3*sd, mu+3*sd)), aes(x)) +
+    geom_function(fun = dnorm, args = list(mean = mu, sd = sd)) +
+    xlim(mu-3,mu+3)
+print(g)
+```
+
+
+## Plot
+```{r, echo= FALSE}
+mu <- 0
+sd <- 1
+
+# draw the normal distribution
+g <- ggplot(data.frame(x= c(mu-3*sd, mu+3*sd)), aes(x)) +
+    geom_function(fun = dnorm, args = list(mean = mu, sd = sd)) +
+    xlim(mu-3,mu+3)
+print(g)
+```
+
+
+## Code in UI
+```{r, eval=FALSE}
+# Application title
+titlePanel("DDP Week4 project"),
+
+# Sidebar with a slider input for number of bins
+sidebarLayout(
+    sidebarPanel(
+        # Get input "mean"
+        textInput("mu", "mean", value = 0),
+        
+        # Get standard deviation
+        textInput("sd", "standard deviation", value = 1)
+    ),
+
+    # Show a plot of the generated distribution
+    mainPanel(
+        textOutput("sen"),
+        plotOutput("plot1")
+    )
+)
+```
